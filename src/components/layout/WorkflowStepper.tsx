@@ -35,8 +35,8 @@ export function WorkflowStepper({
       </div>
       <div>
         {next && (
-          <Button asChild size="sm" disabled={nextDisabled}>
-            <Link to={next.to} params={{ projectId }} disabled={nextDisabled} aria-disabled={nextDisabled}>
+          <Button asChild size="sm" className={nextDisabled ? "pointer-events-none opacity-50" : undefined}>
+            <Link to={next.to} params={{ projectId }} disabled={!!nextDisabled} aria-disabled={!!nextDisabled}>
               {t.common.next}: {next.label} <ChevronRight className="size-4" />
             </Link>
           </Button>
