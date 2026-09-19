@@ -10,33 +10,200 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
+import { Route as ProjectsNewRouteImport } from './routes/projects.new'
+import { Route as ProjectsProjectIdArrayRouteImport } from './routes/projects.$projectId.array'
+import { Route as ProjectsProjectIdBomRouteImport } from './routes/projects.$projectId.bom'
+import { Route as ProjectsProjectIdDrawingsRouteImport } from './routes/projects.$projectId.drawings'
+import { Route as ProjectsProjectIdGenerateRouteImport } from './routes/projects.$projectId.generate'
+import { Route as ProjectsProjectIdInfoRouteImport } from './routes/projects.$projectId.info'
+import { Route as ProjectsProjectIdLayoutRouteImport } from './routes/projects.$projectId.layout'
+import { Route as ProjectsProjectIdModelRouteImport } from './routes/projects.$projectId.model'
+import { Route as ProjectsProjectIdPreviewRouteImport } from './routes/projects.$projectId.preview'
+import { Route as ProjectsProjectIdReportRouteImport } from './routes/projects.$projectId.report'
+import { Route as ProjectsProjectIdResultsRouteImport } from './routes/projects.$projectId.results'
+import { Route as ProjectsProjectIdSettingsRouteImport } from './routes/projects.$projectId.settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
+  id: '/projects/$projectId',
+  path: '/projects/$projectId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsNewRoute = ProjectsNewRouteImport.update({
+  id: '/projects/new',
+  path: '/projects/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsProjectIdArrayRoute = ProjectsProjectIdArrayRouteImport.update({
+  id: '/array',
+  path: '/array',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdBomRoute = ProjectsProjectIdBomRouteImport.update({
+  id: '/bom',
+  path: '/bom',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdDrawingsRoute =
+  ProjectsProjectIdDrawingsRouteImport.update({
+    id: '/drawings',
+    path: '/drawings',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdGenerateRoute =
+  ProjectsProjectIdGenerateRouteImport.update({
+    id: '/generate',
+    path: '/generate',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdInfoRoute = ProjectsProjectIdInfoRouteImport.update({
+  id: '/info',
+  path: '/info',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdLayoutRoute = ProjectsProjectIdLayoutRouteImport.update({
+  id: '/layout',
+  path: '/layout',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdModelRoute = ProjectsProjectIdModelRouteImport.update({
+  id: '/model',
+  path: '/model',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdPreviewRoute =
+  ProjectsProjectIdPreviewRouteImport.update({
+    id: '/preview',
+    path: '/preview',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdReportRoute = ProjectsProjectIdReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdResultsRoute =
+  ProjectsProjectIdResultsRouteImport.update({
+    id: '/results',
+    path: '/results',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdSettingsRoute =
+  ProjectsProjectIdSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
+  '/projects/new': typeof ProjectsNewRoute
+  '/projects/$projectId/array': typeof ProjectsProjectIdArrayRoute
+  '/projects/$projectId/bom': typeof ProjectsProjectIdBomRoute
+  '/projects/$projectId/drawings': typeof ProjectsProjectIdDrawingsRoute
+  '/projects/$projectId/generate': typeof ProjectsProjectIdGenerateRoute
+  '/projects/$projectId/info': typeof ProjectsProjectIdInfoRoute
+  '/projects/$projectId/layout': typeof ProjectsProjectIdLayoutRoute
+  '/projects/$projectId/model': typeof ProjectsProjectIdModelRoute
+  '/projects/$projectId/preview': typeof ProjectsProjectIdPreviewRoute
+  '/projects/$projectId/report': typeof ProjectsProjectIdReportRoute
+  '/projects/$projectId/results': typeof ProjectsProjectIdResultsRoute
+  '/projects/$projectId/settings': typeof ProjectsProjectIdSettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
+  '/projects/new': typeof ProjectsNewRoute
+  '/projects/$projectId/array': typeof ProjectsProjectIdArrayRoute
+  '/projects/$projectId/bom': typeof ProjectsProjectIdBomRoute
+  '/projects/$projectId/drawings': typeof ProjectsProjectIdDrawingsRoute
+  '/projects/$projectId/generate': typeof ProjectsProjectIdGenerateRoute
+  '/projects/$projectId/info': typeof ProjectsProjectIdInfoRoute
+  '/projects/$projectId/layout': typeof ProjectsProjectIdLayoutRoute
+  '/projects/$projectId/model': typeof ProjectsProjectIdModelRoute
+  '/projects/$projectId/preview': typeof ProjectsProjectIdPreviewRoute
+  '/projects/$projectId/report': typeof ProjectsProjectIdReportRoute
+  '/projects/$projectId/results': typeof ProjectsProjectIdResultsRoute
+  '/projects/$projectId/settings': typeof ProjectsProjectIdSettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
+  '/projects/new': typeof ProjectsNewRoute
+  '/projects/$projectId/array': typeof ProjectsProjectIdArrayRoute
+  '/projects/$projectId/bom': typeof ProjectsProjectIdBomRoute
+  '/projects/$projectId/drawings': typeof ProjectsProjectIdDrawingsRoute
+  '/projects/$projectId/generate': typeof ProjectsProjectIdGenerateRoute
+  '/projects/$projectId/info': typeof ProjectsProjectIdInfoRoute
+  '/projects/$projectId/layout': typeof ProjectsProjectIdLayoutRoute
+  '/projects/$projectId/model': typeof ProjectsProjectIdModelRoute
+  '/projects/$projectId/preview': typeof ProjectsProjectIdPreviewRoute
+  '/projects/$projectId/report': typeof ProjectsProjectIdReportRoute
+  '/projects/$projectId/results': typeof ProjectsProjectIdResultsRoute
+  '/projects/$projectId/settings': typeof ProjectsProjectIdSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/projects/$projectId'
+    | '/projects/new'
+    | '/projects/$projectId/array'
+    | '/projects/$projectId/bom'
+    | '/projects/$projectId/drawings'
+    | '/projects/$projectId/generate'
+    | '/projects/$projectId/info'
+    | '/projects/$projectId/layout'
+    | '/projects/$projectId/model'
+    | '/projects/$projectId/preview'
+    | '/projects/$projectId/report'
+    | '/projects/$projectId/results'
+    | '/projects/$projectId/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/projects/$projectId'
+    | '/projects/new'
+    | '/projects/$projectId/array'
+    | '/projects/$projectId/bom'
+    | '/projects/$projectId/drawings'
+    | '/projects/$projectId/generate'
+    | '/projects/$projectId/info'
+    | '/projects/$projectId/layout'
+    | '/projects/$projectId/model'
+    | '/projects/$projectId/preview'
+    | '/projects/$projectId/report'
+    | '/projects/$projectId/results'
+    | '/projects/$projectId/settings'
+  id:
+    | '__root__'
+    | '/'
+    | '/projects/$projectId'
+    | '/projects/new'
+    | '/projects/$projectId/array'
+    | '/projects/$projectId/bom'
+    | '/projects/$projectId/drawings'
+    | '/projects/$projectId/generate'
+    | '/projects/$projectId/info'
+    | '/projects/$projectId/layout'
+    | '/projects/$projectId/model'
+    | '/projects/$projectId/preview'
+    | '/projects/$projectId/report'
+    | '/projects/$projectId/results'
+    | '/projects/$projectId/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProjectsProjectIdRoute: typeof ProjectsProjectIdRouteWithChildren
+  ProjectsNewRoute: typeof ProjectsNewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +215,135 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/$projectId': {
+      id: '/projects/$projectId'
+      path: '/projects/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof ProjectsProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/new': {
+      id: '/projects/new'
+      path: '/projects/new'
+      fullPath: '/projects/new'
+      preLoaderRoute: typeof ProjectsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/$projectId/array': {
+      id: '/projects/$projectId/array'
+      path: '/array'
+      fullPath: '/projects/$projectId/array'
+      preLoaderRoute: typeof ProjectsProjectIdArrayRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/bom': {
+      id: '/projects/$projectId/bom'
+      path: '/bom'
+      fullPath: '/projects/$projectId/bom'
+      preLoaderRoute: typeof ProjectsProjectIdBomRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/drawings': {
+      id: '/projects/$projectId/drawings'
+      path: '/drawings'
+      fullPath: '/projects/$projectId/drawings'
+      preLoaderRoute: typeof ProjectsProjectIdDrawingsRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/generate': {
+      id: '/projects/$projectId/generate'
+      path: '/generate'
+      fullPath: '/projects/$projectId/generate'
+      preLoaderRoute: typeof ProjectsProjectIdGenerateRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/info': {
+      id: '/projects/$projectId/info'
+      path: '/info'
+      fullPath: '/projects/$projectId/info'
+      preLoaderRoute: typeof ProjectsProjectIdInfoRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/layout': {
+      id: '/projects/$projectId/layout'
+      path: '/layout'
+      fullPath: '/projects/$projectId/layout'
+      preLoaderRoute: typeof ProjectsProjectIdLayoutRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/model': {
+      id: '/projects/$projectId/model'
+      path: '/model'
+      fullPath: '/projects/$projectId/model'
+      preLoaderRoute: typeof ProjectsProjectIdModelRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/preview': {
+      id: '/projects/$projectId/preview'
+      path: '/preview'
+      fullPath: '/projects/$projectId/preview'
+      preLoaderRoute: typeof ProjectsProjectIdPreviewRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/report': {
+      id: '/projects/$projectId/report'
+      path: '/report'
+      fullPath: '/projects/$projectId/report'
+      preLoaderRoute: typeof ProjectsProjectIdReportRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/results': {
+      id: '/projects/$projectId/results'
+      path: '/results'
+      fullPath: '/projects/$projectId/results'
+      preLoaderRoute: typeof ProjectsProjectIdResultsRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/settings': {
+      id: '/projects/$projectId/settings'
+      path: '/settings'
+      fullPath: '/projects/$projectId/settings'
+      preLoaderRoute: typeof ProjectsProjectIdSettingsRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
   }
 }
 
+interface ProjectsProjectIdRouteChildren {
+  ProjectsProjectIdArrayRoute: typeof ProjectsProjectIdArrayRoute
+  ProjectsProjectIdBomRoute: typeof ProjectsProjectIdBomRoute
+  ProjectsProjectIdDrawingsRoute: typeof ProjectsProjectIdDrawingsRoute
+  ProjectsProjectIdGenerateRoute: typeof ProjectsProjectIdGenerateRoute
+  ProjectsProjectIdInfoRoute: typeof ProjectsProjectIdInfoRoute
+  ProjectsProjectIdLayoutRoute: typeof ProjectsProjectIdLayoutRoute
+  ProjectsProjectIdModelRoute: typeof ProjectsProjectIdModelRoute
+  ProjectsProjectIdPreviewRoute: typeof ProjectsProjectIdPreviewRoute
+  ProjectsProjectIdReportRoute: typeof ProjectsProjectIdReportRoute
+  ProjectsProjectIdResultsRoute: typeof ProjectsProjectIdResultsRoute
+  ProjectsProjectIdSettingsRoute: typeof ProjectsProjectIdSettingsRoute
+}
+
+const ProjectsProjectIdRouteChildren: ProjectsProjectIdRouteChildren = {
+  ProjectsProjectIdArrayRoute: ProjectsProjectIdArrayRoute,
+  ProjectsProjectIdBomRoute: ProjectsProjectIdBomRoute,
+  ProjectsProjectIdDrawingsRoute: ProjectsProjectIdDrawingsRoute,
+  ProjectsProjectIdGenerateRoute: ProjectsProjectIdGenerateRoute,
+  ProjectsProjectIdInfoRoute: ProjectsProjectIdInfoRoute,
+  ProjectsProjectIdLayoutRoute: ProjectsProjectIdLayoutRoute,
+  ProjectsProjectIdModelRoute: ProjectsProjectIdModelRoute,
+  ProjectsProjectIdPreviewRoute: ProjectsProjectIdPreviewRoute,
+  ProjectsProjectIdReportRoute: ProjectsProjectIdReportRoute,
+  ProjectsProjectIdResultsRoute: ProjectsProjectIdResultsRoute,
+  ProjectsProjectIdSettingsRoute: ProjectsProjectIdSettingsRoute,
+}
+
+const ProjectsProjectIdRouteWithChildren =
+  ProjectsProjectIdRoute._addFileChildren(ProjectsProjectIdRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProjectsProjectIdRoute: ProjectsProjectIdRouteWithChildren,
+  ProjectsNewRoute: ProjectsNewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

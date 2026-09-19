@@ -28,7 +28,7 @@ export function ProjectInfoPage({ project }: { project: Project }) {
             </div>
             <div className="space-y-1.5">
               <Label>Governorate</Label>
-              <Select value={project.governorate ?? undefined} onValueChange={(v) => update(project.id, { governorate: v })}>
+              <Select value={project.governorate ?? ""} onValueChange={(v) => update(project.id, { governorate: v })}>
                 <SelectTrigger className="w-full"><SelectValue placeholder="Select governorate" /></SelectTrigger>
                 <SelectContent>
                   {GOVERNORATES.map((g) => <SelectItem key={g} value={g}>{g}</SelectItem>)}
