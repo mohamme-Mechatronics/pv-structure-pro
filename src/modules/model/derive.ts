@@ -13,7 +13,7 @@ import { getPanel } from "@/data/panelLibrary";
 const DEG = Math.PI / 180;
 
 /** MOCK layout generator — enumerates rows × columns × tables combos. */
-export function deriveLayoutCandidates(project: Project): ArrayLayout[] {
+function deriveAllLayouts(project: Project): ArrayLayout[] {
   const { panelCount, panelId, area } = project.array;
   const panel = getPanel(panelId);
   const gap = DESIGN_CONSTANTS.geometry.panelGapMm / 1000;
@@ -53,13 +53,21 @@ export function deriveLayoutCandidates(project: Project): ArrayLayout[] {
     }
   }
   return out
-    .sort((a, b) => Number(b.fitsArea) - Number(a.fitsArea) || a.tables - b.tables || a.rows - b.rows)
-    .slice(0, 6);
+    .sort((a, b) => Number(b.fitsArea) - Number(a.fitsArea) || a.tables - b.tables || a.rows - b.rows);
+}
+
+/** Top candidates shown to the user (selected layout is always included). */
+export function deriveLayoutCandidates(project: Project): ArrayLayout[] {
+  const all = deriveAllLayouts(project);
+  const top = all.slice(0, 6);
+  const sel = all.find((l) => l.id === project.selectedLayoutId);
+  if (sel && !top.includes(sel)) top[top.length - 1] = sel;
+  return top;
 }
 
 export function getSelectedLayout(project: Project): ArrayLayout | null {
   if (!project.selectedLayoutId) return null;
-  return deriveLayoutCandidates(project).find((l) => l.id === project.selectedLayoutId) ?? null;
+  return deriveAllLayouts(project).find((l) => l.id === project.selectedLayoutId) ?? null;
 }
 
 /** MOCK geometry derivation — will be replaced by the Geometry Engine. */
