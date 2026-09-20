@@ -12,13 +12,17 @@ import { deriveArrayPowerW } from "@/modules/model/derive";
 import type { Project } from "@/types";
 import { fmtKWp, fmtNum } from "@/utils/format";
 import { cn } from "@/lib/utils";
+import { validateAreaLength, validateAreaWidth, validatePanelCount } from "@/lib/validation";
 import { t } from "@/data/strings/en";
 
 export function SolarArrayPage({ project }: { project: Project }) {
   const updateArray = useProjectStore((s) => s.updateArray);
   const { panelCount, panelId, area } = project.array;
   const panel = getPanel(panelId);
-  const valid = panelCount > 0 && area.widthM > 0 && area.lengthM > 0;
+  const countError = validatePanelCount(panelCount);
+  const widthError = validateAreaWidth(area.widthM);
+  const lengthError = validateAreaLength(area.lengthM);
+  const valid = !countError && !widthError && !lengthError;
 
   return (
     <div className="space-y-6">
