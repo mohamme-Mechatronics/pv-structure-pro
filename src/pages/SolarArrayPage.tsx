@@ -36,6 +36,7 @@ export function SolarArrayPage({ project }: { project: Project }) {
                 <Label htmlFor="count">Number of PV Panels</Label>
                 <Input id="count" type="number" min={1} step={1} className="num" value={panelCount}
                   onChange={(e) => updateArray(project.id, { panelCount: Math.max(0, parseInt(e.target.value || "0", 10)) })} />
+                {countError && <p className="text-xs text-destructive">{countError}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label>Array DC Power</Label>
@@ -71,11 +72,13 @@ export function SolarArrayPage({ project }: { project: Project }) {
                 <Label htmlFor="w">Width (m)</Label>
                 <Input id="w" type="number" min={1} step={0.5} className="num" value={area.widthM}
                   onChange={(e) => updateArray(project.id, { area: { ...area, widthM: parseFloat(e.target.value || "0") } })} />
+                {widthError && <p className="text-xs text-destructive">{widthError}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="l">Length (m)</Label>
                 <Input id="l" type="number" min={1} step={0.5} className="num" value={area.lengthM}
                   onChange={(e) => updateArray(project.id, { area: { ...area, lengthM: parseFloat(e.target.value || "0") } })} />
+                {lengthError && <p className="text-xs text-destructive">{lengthError}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label>Gross Area</Label>
