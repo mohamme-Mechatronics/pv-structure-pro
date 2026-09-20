@@ -6,7 +6,6 @@ import { StatusBadge } from "@/components/common/StatusBadge";
 import { WorkflowStepper } from "@/components/layout/WorkflowStepper";
 import { deriveArrayPowerW, deriveGeometry, getSelectedLayout } from "@/modules/model/derive";
 import { getPanel } from "@/data/panelLibrary";
-import { DESIGN_CONSTANTS } from "@/data/designConstants";
 import type { Project, ResultStatus } from "@/types";
 import { fmtKWp, fmtNum } from "@/utils/format";
 import { t } from "@/data/strings/en";
@@ -65,7 +64,7 @@ export function DesignResultsPage({ project }: { project: Project }) {
     },
     {
       title: "Foundations", status: pendingStatus, engine: "Foundation Engine",
-      rows: [{ label: "Type", value: DESIGN_CONSTANTS.foundation.type }, { label: "Concrete", value: m.concreteGrade }, { label: "Count", value: geo?.footingsTotal ?? "—" }, nc("Footing dimensions"), nc("Bearing check")],
+      rows: [{ label: "Type", value: cfg.foundationType }, { label: "Concrete", value: m.concreteGrade }, { label: "Count", value: geo?.footingsTotal ?? "—" }, nc("Footing dimensions"), nc("Bearing check")],
     },
     {
       title: "Anchor Bolts", status: pendingStatus, engine: "Anchor Bolt Engine",
