@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { ArrayInput, DesignRun, Project, ProjectType, StageRun } from "@/types";
+import type { ArrayInput, DesignRun, NewProjectInput, Project, StageRun } from "@/types";
 import { MOCK_PROJECTS } from "@/data/mockProjects";
-import { DESIGN_CONSTANTS } from "@/data/designConstants";
+import { DESIGN_CONSTANTS, createDefaultDesignConfiguration } from "@/data/designConstants";
 import { DESIGN_PIPELINE } from "@/modules/design/pipeline";
 import { engineRegistry } from "@/engines/registry";
 import { newId } from "@/utils/format";
@@ -11,7 +11,7 @@ interface ProjectState {
   projects: Project[];
   currentProjectId: string | null;
   setCurrent: (id: string | null) => void;
-  createProject: (type: ProjectType) => Project;
+  createProject: (input: NewProjectInput) => Project;
   updateProject: (id: string, patch: Partial<Project>) => void;
   updateArray: (id: string, patch: Partial<ArrayInput>) => void;
   selectLayout: (id: string, layoutId: string) => void;
@@ -30,17 +30,19 @@ export const useProjectStore = create<ProjectState>()(
       currentProjectId: null,
       setCurrent: (id) => set({ currentProjectId: id }),
 
-      createProject: (type) => {
+      createProject: (input) => {
         const project: Project = {
           id: newId("prj"),
-          name: "Untitled Project",
-          type,
-          governorate: null,
+          name: input.name.trim(),
+          type: input.type,
+          governorate: input.governorate,
           createdAt: now(),
           updatedAt: now(),
           status: "draft",
           designStatus: "not_generated",
-          array: { panelCount: 48, panelId: "PV-650", area: { widthM: 30, lengthM: 40 } },
+          array: { panelCount: input.panelCount, panelId: input.panelId, area: { ...input.area } },
+          // System design constants are stamped automatically — never user input.
+          designConfiguration: createDefaultDesignConfiguration(),
           selectedLayoutId: null,
           designRun: null,
         };
