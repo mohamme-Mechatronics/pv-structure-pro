@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { PageHeader } from "@/components/common/PageHeader";
-import { DESIGN_CONSTANT_ROWS } from "@/data/designConstants";
+import { designConstantRows } from "@/data/designConstants";
 import { useProjectStore } from "@/store/projectStore";
 import type { Project } from "@/types";
 import { t } from "@/data/strings/en";
@@ -16,7 +16,8 @@ export function ProjectSettingsPage({ project }: { project: Project }) {
   const remove = useProjectStore((s) => s.deleteProject);
   const navigate = useNavigate();
 
-  const groups = Array.from(new Set(DESIGN_CONSTANT_ROWS.map((r) => r.group)));
+  const rows = designConstantRows(project.designConfiguration);
+  const groups = Array.from(new Set(rows.map((r) => r.group)));
 
   return (
     <div className="space-y-6">

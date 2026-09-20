@@ -135,9 +135,20 @@ export const useProjectStore = create<ProjectState>()(
       },
     }),
     {
-      name: "ssdp-projects-v1",
+      name: "ssdp-projects-v2",
+      version: 2,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ projects: s.projects }),
+      /** Upgrade records saved before `designConfiguration` existed. */
+      migrate: (persisted) => {
+        const state = persisted as { projects?: Project[] } | undefined;
+        return {
+          projects: (state?.projects ?? MOCK_PROJECTS).map((p) => ({
+            ...p,
+            designConfiguration: p.designConfiguration ?? createDefaultDesignConfiguration(),
+          })),
+        } as ProjectState;
+      },
     },
   ),
 );
