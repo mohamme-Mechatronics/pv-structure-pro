@@ -91,7 +91,7 @@ export function DesignResultsPage({ project }: { project: Project }) {
               </CardTitle>
               <div className="font-mono text-[10px] text-muted-foreground">{c.engine}</div>
             </CardHeader>
-            <CardContent><SpecTable rows={c.rows} /></CardContent>
+            <CardContent>{c.content ?? <SpecTable rows={c.rows ?? []} />}</CardContent>
           </Card>
         ))}
       </div>
