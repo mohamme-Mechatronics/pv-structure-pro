@@ -33,7 +33,7 @@ export function ProjectSettingsPage({ project }: { project: Project }) {
               <div key={g}>
                 <div className="mb-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{g}</div>
                 <dl className="divide-y text-sm">
-                  {DESIGN_CONSTANT_ROWS.filter((r) => r.group === g).map((r) => (
+                  {rows.filter((r) => r.group === g).map((r) => (
                     <div key={r.label} className="flex justify-between py-1.5"><dt className="text-muted-foreground">{r.label}</dt><dd className="num">{r.value}</dd></div>
                   ))}
                 </dl>
