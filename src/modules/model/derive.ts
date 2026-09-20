@@ -18,7 +18,7 @@ function deriveAllLayouts(project: Project): ArrayLayout[] {
   const panel = getPanel(panelId);
   const gap = DESIGN_CONSTANTS.geometry.panelGapMm / 1000;
   const tableGap = DESIGN_CONSTANTS.geometry.tableGapM;
-  const tilt = DESIGN_CONSTANTS.geometry.tiltAngleDeg * DEG;
+  const tilt = project.designConfiguration.tiltAngleDeg * DEG;
   const pw = panel.widthMm / 1000; // portrait: width along table
   const pl = panel.lengthMm / 1000; // portrait: length up the slope
 
@@ -86,7 +86,7 @@ export function deriveGeometry(project: Project): StructureGeometry | null {
     tableCount: layout.tables,
     tableWidthM: tableWidth,
     tableDepthM: tableDepth,
-    tiltDeg: DESIGN_CONSTANTS.geometry.tiltAngleDeg,
+    tiltDeg: project.designConfiguration.tiltAngleDeg,
     columnsPerTable,
     raftersPerTable,
     purlinsPerTable,
@@ -103,7 +103,8 @@ export function deriveGeometry(project: Project): StructureGeometry | null {
 export function deriveBom(project: Project): BomItem[] {
   const panel = getPanel(project.array.panelId);
   const g = deriveGeometry(project);
-  const m = DESIGN_CONSTANTS.materials;
+  const c = project.designConfiguration;
+  const m = { steelGrade: c.steelGrade, concreteGrade: c.concreteGrade, rebarGrade: c.rebarGrade, concreteCoverMm: c.concreteCoverMm };
   const na = "Pending engine";
   return [
     {
