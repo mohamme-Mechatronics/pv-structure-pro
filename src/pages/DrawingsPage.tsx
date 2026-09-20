@@ -2,7 +2,6 @@ import { PageHeader } from "@/components/common/PageHeader";
 import { MockBanner } from "@/components/common/MockBanner";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import { WorkflowStepper } from "@/components/layout/WorkflowStepper";
-import { DESIGN_CONSTANTS } from "@/data/designConstants";
 import type { DrawingSheet, Project } from "@/types";
 import { t } from "@/data/strings/en";
 
@@ -20,7 +19,7 @@ const SHEETS: Omit<DrawingSheet, "status">[] = [
 export function DrawingsPage({ project }: { project: Project }) {
   return (
     <div className="space-y-6">
-      <PageHeader code="Step 08" title={t.nav.drawings} description={`Drawing set · sheet size ${DESIGN_CONSTANTS.drawings.sheetSize} · ${SHEETS.length} sheets.`} />
+      <PageHeader code="Step 08" title={t.nav.drawings} description={`Drawing set · sheet size ${project.designConfiguration.drawingSize} · ${SHEETS.length} sheets.`} />
       <MockBanner>Drawing Engine pending — sheets are placeholders with title blocks only.</MockBanner>
       <div className="grid gap-4 md:grid-cols-2">
         {SHEETS.map((s) => (

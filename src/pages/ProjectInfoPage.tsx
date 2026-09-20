@@ -8,12 +8,15 @@ import { WorkflowStepper } from "@/components/layout/WorkflowStepper";
 import { GOVERNORATES } from "@/data/governorates";
 import { useProjectStore } from "@/store/projectStore";
 import type { Project } from "@/types";
+import { validateGovernorate, validateProjectName } from "@/lib/validation";
 import { fmtDate } from "@/utils/format";
 import { t } from "@/data/strings/en";
 
 export function ProjectInfoPage({ project }: { project: Project }) {
   const update = useProjectStore((s) => s.updateProject);
-  const valid = project.name.trim().length > 0 && !!project.governorate;
+  const nameError = validateProjectName(project.name);
+  const govError = validateGovernorate(project.governorate);
+  const valid = !nameError && !govError;
 
   return (
     <div className="space-y-6">
@@ -25,6 +28,7 @@ export function ProjectInfoPage({ project }: { project: Project }) {
             <div className="space-y-1.5 sm:col-span-2">
               <Label htmlFor="name">Project Name</Label>
               <Input id="name" value={project.name} onChange={(e) => update(project.id, { name: e.target.value })} placeholder="e.g. Aden Free Zone – 48 kWp" />
+              {nameError && <p className="text-xs text-destructive">{nameError}</p>}
             </div>
             <div className="space-y-1.5">
               <Label>Governorate</Label>
@@ -34,6 +38,7 @@ export function ProjectInfoPage({ project }: { project: Project }) {
                   {GOVERNORATES.map((g) => <SelectItem key={g} value={g}>{g}</SelectItem>)}
                 </SelectContent>
               </Select>
+              {govError && <p className="text-xs text-destructive">{govError}</p>}
             </div>
             <div className="space-y-1.5">
               <Label>Project Type</Label>

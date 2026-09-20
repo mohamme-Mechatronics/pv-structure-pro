@@ -35,7 +35,7 @@ export function buildSceneModel(project: Project): SceneModel | null {
   const pl = panel.lengthMm / 1000;
   const pt = panel.thicknessMm / 1000;
   const gap = DESIGN_CONSTANTS.geometry.panelGapMm / 1000;
-  const tilt = DESIGN_CONSTANTS.geometry.tiltAngleDeg * DEG;
+  const tilt = project.designConfiguration.tiltAngleDeg * DEG;
   const clear = DESIGN_CONSTANTS.geometry.frontClearanceM;
   const tableGap = DESIGN_CONSTANTS.geometry.tableGapM;
 

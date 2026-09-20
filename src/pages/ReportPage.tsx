@@ -2,9 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/common/PageHeader";
 import { MockBanner } from "@/components/common/MockBanner";
 import { SpecTable } from "@/components/common/SpecTable";
+import { ProjectSummary } from "@/components/common/ProjectSummary";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import { WorkflowStepper } from "@/components/layout/WorkflowStepper";
-import { DESIGN_CONSTANT_ROWS } from "@/data/designConstants";
+import { designConstantRows } from "@/data/designConstants";
 import { deriveArrayPowerW, deriveGeometry, getSelectedLayout } from "@/modules/model/derive";
 import { getPanel } from "@/data/panelLibrary";
 import type { EngineId } from "@/engines/types";
@@ -40,9 +41,9 @@ export function ReportPage({ project }: { project: Project }) {
   const body = (id: string) => {
     switch (id) {
       case "project":
-        return <SpecTable rows={[{ label: "Project", value: project.name }, { label: "Type", value: t.projectTypes[project.type] }, { label: "Governorate", value: project.governorate ?? "—" }, { label: "Project ID", value: project.id }]} />;
+        return <ProjectSummary project={project} />;
       case "criteria":
-        return <SpecTable rows={DESIGN_CONSTANT_ROWS.map((r) => ({ label: `${r.group} · ${r.label}`, value: r.value }))} />;
+        return <SpecTable rows={designConstantRows(project.designConfiguration).map((r) => ({ label: `${r.group} · ${r.label}`, value: r.value }))} />;
       case "array":
         return <SpecTable rows={[{ label: "Panels", value: project.array.panelCount }, { label: "Module", value: `${panel.powerW} W (mock)` }, { label: "DC power", value: fmtKWp(deriveArrayPowerW(project)) }, { label: "Layout", value: layout?.label ?? "—" }, { label: "Available area", value: `${project.array.area.widthM} × ${project.array.area.lengthM} m` }]} />;
       case "geometry":

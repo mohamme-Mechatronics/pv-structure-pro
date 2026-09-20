@@ -50,3 +50,7 @@ export const PANEL_LIBRARY: Record<PanelId, PanelSpec> = {
 export const PANEL_LIST: PanelSpec[] = Object.values(PANEL_LIBRARY);
 
 export const getPanel = (id: PanelId): PanelSpec => PANEL_LIBRARY[id];
+
+/** The user selects power only — dimensions always come from this library. */
+export const getPanelByPower = (powerW: number): PanelSpec | null =>
+  PANEL_LIST.find((p) => p.powerW === powerW) ?? null;

@@ -1,4 +1,6 @@
+import type { ReactNode } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProjectSummary } from "@/components/common/ProjectSummary";
 import { PageHeader } from "@/components/common/PageHeader";
 import { MockBanner } from "@/components/common/MockBanner";
 import { SpecTable, type SpecRow } from "@/components/common/SpecTable";
@@ -6,7 +8,6 @@ import { StatusBadge } from "@/components/common/StatusBadge";
 import { WorkflowStepper } from "@/components/layout/WorkflowStepper";
 import { deriveArrayPowerW, deriveGeometry, getSelectedLayout } from "@/modules/model/derive";
 import { getPanel } from "@/data/panelLibrary";
-import { DESIGN_CONSTANTS } from "@/data/designConstants";
 import type { Project, ResultStatus } from "@/types";
 import { fmtKWp, fmtNum } from "@/utils/format";
 import { t } from "@/data/strings/en";
@@ -15,7 +16,8 @@ interface ResultCard {
   title: string;
   status: ResultStatus;
   engine: string;
-  rows: SpecRow[];
+  rows?: SpecRow[];
+  content?: ReactNode;
 }
 
 export function DesignResultsPage({ project }: { project: Project }) {
@@ -23,7 +25,8 @@ export function DesignResultsPage({ project }: { project: Project }) {
   const layout = getSelectedLayout(project);
   const geo = deriveGeometry(project);
   const hasRun = !!project.designRun;
-  const m = DESIGN_CONSTANTS.materials;
+  const cfg = project.designConfiguration;
+  const m = { steelGrade: cfg.steelGrade, concreteGrade: cfg.concreteGrade, rebarGrade: cfg.rebarGrade, concreteCoverMm: cfg.concreteCoverMm };
 
   const pendingStatus: ResultStatus = hasRun ? "pending" : "not_calculated";
   const nc = (label: string): SpecRow => ({ label, value: <span className="text-muted-foreground">—</span> });
@@ -31,12 +34,7 @@ export function DesignResultsPage({ project }: { project: Project }) {
   const cards: ResultCard[] = [
     {
       title: "Project Information", status: "ready", engine: "Input Engine",
-      rows: [
-        { label: "Project", value: project.name },
-        { label: "Type", value: t.projectTypes[project.type] },
-        { label: "Governorate", value: project.governorate ?? "—" },
-        { label: "Design status", value: t.status[project.designStatus] },
-      ],
+      content: <ProjectSummary project={project} />,
     },
     {
       title: "PV Array", status: "ready", engine: "Panel Library / Array Engine",
@@ -64,7 +62,7 @@ export function DesignResultsPage({ project }: { project: Project }) {
     },
     {
       title: "Foundations", status: pendingStatus, engine: "Foundation Engine",
-      rows: [{ label: "Type", value: DESIGN_CONSTANTS.foundation.type }, { label: "Concrete", value: m.concreteGrade }, { label: "Count", value: geo?.footingsTotal ?? "—" }, nc("Footing dimensions"), nc("Bearing check")],
+      rows: [{ label: "Type", value: cfg.foundationType }, { label: "Concrete", value: m.concreteGrade }, { label: "Count", value: geo?.footingsTotal ?? "—" }, nc("Footing dimensions"), nc("Bearing check")],
     },
     {
       title: "Anchor Bolts", status: pendingStatus, engine: "Anchor Bolt Engine",
@@ -93,7 +91,7 @@ export function DesignResultsPage({ project }: { project: Project }) {
               </CardTitle>
               <div className="font-mono text-[10px] text-muted-foreground">{c.engine}</div>
             </CardHeader>
-            <CardContent><SpecTable rows={c.rows} /></CardContent>
+            <CardContent>{c.content ?? <SpecTable rows={c.rows ?? []} />}</CardContent>
           </Card>
         ))}
       </div>

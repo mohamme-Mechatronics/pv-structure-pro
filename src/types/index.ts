@@ -87,6 +87,23 @@ export interface DesignRun {
   stages: StageRun[];
 }
 
+/**
+ * Per-project snapshot of the system design constants.
+ * Stamped automatically at project creation — never entered by the user.
+ */
+export interface DesignConfiguration {
+  tiltAngleDeg: number;
+  windSpeedMs: number;
+  steelGrade: string;
+  concreteGrade: string;
+  rebarGrade: string;
+  concreteCoverMm: number;
+  designCodes: { loads: string; steel: string };
+  units: { length: string; force: string; stress: string };
+  drawingSize: "A3";
+  foundationType: string;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -97,8 +114,19 @@ export interface Project {
   status: ProjectStatus;
   designStatus: DesignStatus;
   array: ArrayInput;
+  designConfiguration: DesignConfiguration;
   selectedLayoutId: string | null;
   designRun: DesignRun | null;
+}
+
+/** Payload collected by the New Project wizard. */
+export interface NewProjectInput {
+  name: string;
+  type: ProjectType;
+  governorate: string;
+  panelCount: number;
+  panelId: PanelId;
+  area: AvailableArea;
 }
 
 export type ResultStatus = "ready" | "pending" | "not_calculated" | "mock";

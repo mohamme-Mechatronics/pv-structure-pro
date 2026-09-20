@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { PageHeader } from "@/components/common/PageHeader";
-import { DESIGN_CONSTANT_ROWS } from "@/data/designConstants";
+import { designConstantRows } from "@/data/designConstants";
 import { useProjectStore } from "@/store/projectStore";
 import type { Project } from "@/types";
 import { t } from "@/data/strings/en";
@@ -16,7 +16,8 @@ export function ProjectSettingsPage({ project }: { project: Project }) {
   const remove = useProjectStore((s) => s.deleteProject);
   const navigate = useNavigate();
 
-  const groups = Array.from(new Set(DESIGN_CONSTANT_ROWS.map((r) => r.group)));
+  const rows = designConstantRows(project.designConfiguration);
+  const groups = Array.from(new Set(rows.map((r) => r.group)));
 
   return (
     <div className="space-y-6">
@@ -32,7 +33,7 @@ export function ProjectSettingsPage({ project }: { project: Project }) {
               <div key={g}>
                 <div className="mb-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{g}</div>
                 <dl className="divide-y text-sm">
-                  {DESIGN_CONSTANT_ROWS.filter((r) => r.group === g).map((r) => (
+                  {rows.filter((r) => r.group === g).map((r) => (
                     <div key={r.label} className="flex justify-between py-1.5"><dt className="text-muted-foreground">{r.label}</dt><dd className="num">{r.value}</dd></div>
                   ))}
                 </dl>
