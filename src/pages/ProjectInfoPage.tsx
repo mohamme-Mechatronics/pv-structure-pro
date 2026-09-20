@@ -8,12 +8,15 @@ import { WorkflowStepper } from "@/components/layout/WorkflowStepper";
 import { GOVERNORATES } from "@/data/governorates";
 import { useProjectStore } from "@/store/projectStore";
 import type { Project } from "@/types";
+import { validateGovernorate, validateProjectName } from "@/lib/validation";
 import { fmtDate } from "@/utils/format";
 import { t } from "@/data/strings/en";
 
 export function ProjectInfoPage({ project }: { project: Project }) {
   const update = useProjectStore((s) => s.updateProject);
-  const valid = project.name.trim().length > 0 && !!project.governorate;
+  const nameError = validateProjectName(project.name);
+  const govError = validateGovernorate(project.governorate);
+  const valid = !nameError && !govError;
 
   return (
     <div className="space-y-6">
