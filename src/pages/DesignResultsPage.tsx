@@ -23,7 +23,8 @@ export function DesignResultsPage({ project }: { project: Project }) {
   const layout = getSelectedLayout(project);
   const geo = deriveGeometry(project);
   const hasRun = !!project.designRun;
-  const m = DESIGN_CONSTANTS.materials;
+  const cfg = project.designConfiguration;
+  const m = { steelGrade: cfg.steelGrade, concreteGrade: cfg.concreteGrade, rebarGrade: cfg.rebarGrade, concreteCoverMm: cfg.concreteCoverMm };
 
   const pendingStatus: ResultStatus = hasRun ? "pending" : "not_calculated";
   const nc = (label: string): SpecRow => ({ label, value: <span className="text-muted-foreground">—</span> });

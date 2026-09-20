@@ -120,7 +120,7 @@ export function deriveBom(project: Project): BomItem[] {
     { item: "Purlin", description: "Module support purlin", specification: `Section TBD · ${m.steelGrade}`, quantity: g?.purlinsTotal ?? null, unit: "no.", remarks: na },
     { item: "Base Plate", description: "Column base plate", specification: `Size TBD · ${m.steelGrade}`, quantity: g?.columnsTotal ?? null, unit: "no.", remarks: na },
     { item: "Anchor Bolt", description: "Cast-in anchor bolt", specification: "Dia./grade TBD", quantity: g ? g.columnsTotal * 4 : null, unit: "no.", remarks: "4 per base assumed (mock)" },
-    { item: "Concrete Foundation", description: DESIGN_CONSTANTS.foundation.type, specification: `${m.concreteGrade} · size TBD`, quantity: g?.footingsTotal ?? null, unit: "no.", remarks: na },
+    { item: "Concrete Foundation", description: c.foundationType, specification: `${m.concreteGrade} · size TBD`, quantity: g?.footingsTotal ?? null, unit: "no.", remarks: na },
     { item: "Rebar", description: "Footing reinforcement", specification: `${m.rebarGrade} · cover ${m.concreteCoverMm} mm`, quantity: null, unit: "kg", remarks: na },
   ];
 }
