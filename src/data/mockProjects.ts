@@ -1,4 +1,5 @@
 import type { Project } from "@/types";
+import { createDefaultDesignConfiguration } from "@/data/designConstants";
 
 /** Seed projects shown on the dashboard on first launch (mock data). */
 export const MOCK_PROJECTS: Project[] = [
@@ -12,6 +13,7 @@ export const MOCK_PROJECTS: Project[] = [
     status: "in_progress",
     designStatus: "not_generated",
     array: { panelCount: 48, panelId: "PV-650", area: { widthM: 30, lengthM: 40 } },
+    designConfiguration: createDefaultDesignConfiguration(),
     selectedLayoutId: "L-2x6x4",
     designRun: null,
   },
@@ -25,6 +27,7 @@ export const MOCK_PROJECTS: Project[] = [
     status: "in_progress",
     designStatus: "not_generated",
     array: { panelCount: 72, panelId: "PV-580", area: { widthM: 35, lengthM: 45 } },
+    designConfiguration: createDefaultDesignConfiguration(),
     selectedLayoutId: null,
     designRun: null,
   },
@@ -38,6 +41,7 @@ export const MOCK_PROJECTS: Project[] = [
     status: "draft",
     designStatus: "not_generated",
     array: { panelCount: 120, panelId: "PV-770", area: { widthM: 40, lengthM: 60 } },
+    designConfiguration: createDefaultDesignConfiguration(),
     selectedLayoutId: null,
     designRun: null,
   },
@@ -51,6 +55,7 @@ export const MOCK_PROJECTS: Project[] = [
     status: "draft",
     designStatus: "not_generated",
     array: { panelCount: 24, panelId: "PV-580", area: { widthM: 20, lengthM: 25 } },
+    designConfiguration: createDefaultDesignConfiguration(),
     selectedLayoutId: null,
     designRun: null,
   },

@@ -1,3 +1,5 @@
+import type { DesignConfiguration } from "@/types";
+
 /**
  * Centralized system design constants.
  *
