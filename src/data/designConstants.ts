@@ -40,19 +40,41 @@ export const DESIGN_CONSTANTS = {
 
 export type DesignConstants = typeof DESIGN_CONSTANTS;
 
+/**
+ * Factory stamping the system constants onto a new project.
+ * Every project carries its own immutable copy so future engine versions can
+ * change the constants without rewriting existing projects.
+ */
+export function createDefaultDesignConfiguration(): DesignConfiguration {
+  return {
+    tiltAngleDeg: DESIGN_CONSTANTS.geometry.tiltAngleDeg,
+    windSpeedMs: DESIGN_CONSTANTS.loads.windSpeedMs,
+    steelGrade: DESIGN_CONSTANTS.materials.steelGrade,
+    concreteGrade: DESIGN_CONSTANTS.materials.concreteGrade,
+    rebarGrade: DESIGN_CONSTANTS.materials.rebarGrade,
+    concreteCoverMm: DESIGN_CONSTANTS.materials.concreteCoverMm,
+    designCodes: { loads: DESIGN_CONSTANTS.codes.loads, steel: DESIGN_CONSTANTS.codes.steel },
+    units: { ...DESIGN_CONSTANTS.units },
+    drawingSize: DESIGN_CONSTANTS.drawings.sheetSize,
+    foundationType: DESIGN_CONSTANTS.foundation.type,
+  };
+}
+
 /** Flat list for read-only display in Project Settings and the report. */
-export const DESIGN_CONSTANT_ROWS: { group: string; label: string; value: string }[] = [
-  { group: "Geometry", label: "Tilt Angle", value: `${DESIGN_CONSTANTS.geometry.tiltAngleDeg}°` },
-  { group: "Loads", label: "Basic Wind Speed", value: `${DESIGN_CONSTANTS.loads.windSpeedMs} m/s` },
-  { group: "Materials", label: "Steel Grade", value: DESIGN_CONSTANTS.materials.steelGrade },
-  { group: "Materials", label: "Concrete Grade", value: DESIGN_CONSTANTS.materials.concreteGrade },
-  { group: "Materials", label: "Rebar Grade", value: DESIGN_CONSTANTS.materials.rebarGrade },
-  { group: "Materials", label: "Concrete Cover", value: `${DESIGN_CONSTANTS.materials.concreteCoverMm} mm` },
-  { group: "Design Codes", label: "Loads", value: DESIGN_CONSTANTS.codes.loads },
-  { group: "Design Codes", label: "Steel", value: DESIGN_CONSTANTS.codes.steel },
-  { group: "Units", label: "Length", value: DESIGN_CONSTANTS.units.length },
-  { group: "Units", label: "Force", value: DESIGN_CONSTANTS.units.force },
-  { group: "Units", label: "Stress", value: DESIGN_CONSTANTS.units.stress },
-  { group: "Drawings", label: "Sheet Size", value: DESIGN_CONSTANTS.drawings.sheetSize },
-  { group: "Foundation", label: "Foundation Type", value: DESIGN_CONSTANTS.foundation.type },
-];
+export function designConstantRows(c: DesignConfiguration): { group: string; label: string; value: string }[] {
+  return [
+    { group: "Geometry", label: "Tilt Angle", value: `${c.tiltAngleDeg}°` },
+    { group: "Loads", label: "Basic Wind Speed", value: `${c.windSpeedMs} m/s` },
+    { group: "Materials", label: "Steel Grade", value: c.steelGrade },
+    { group: "Materials", label: "Concrete Grade", value: c.concreteGrade },
+    { group: "Materials", label: "Rebar Grade", value: c.rebarGrade },
+    { group: "Materials", label: "Concrete Cover", value: `${c.concreteCoverMm} mm` },
+    { group: "Design Codes", label: "Loads", value: c.designCodes.loads },
+    { group: "Design Codes", label: "Steel", value: c.designCodes.steel },
+    { group: "Units", label: "Length", value: c.units.length },
+    { group: "Units", label: "Force", value: c.units.force },
+    { group: "Units", label: "Stress", value: c.units.stress },
+    { group: "Drawings", label: "Sheet Size", value: c.drawingSize },
+    { group: "Foundation", label: "Foundation Type", value: c.foundationType },
+  ];
+}
