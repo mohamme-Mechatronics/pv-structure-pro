@@ -1,4 +1,6 @@
+import type { ReactNode } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProjectSummary } from "@/components/common/ProjectSummary";
 import { PageHeader } from "@/components/common/PageHeader";
 import { MockBanner } from "@/components/common/MockBanner";
 import { SpecTable, type SpecRow } from "@/components/common/SpecTable";
@@ -14,7 +16,8 @@ interface ResultCard {
   title: string;
   status: ResultStatus;
   engine: string;
-  rows: SpecRow[];
+  rows?: SpecRow[];
+  content?: ReactNode;
 }
 
 export function DesignResultsPage({ project }: { project: Project }) {
@@ -31,12 +34,7 @@ export function DesignResultsPage({ project }: { project: Project }) {
   const cards: ResultCard[] = [
     {
       title: "Project Information", status: "ready", engine: "Input Engine",
-      rows: [
-        { label: "Project", value: project.name },
-        { label: "Type", value: t.projectTypes[project.type] },
-        { label: "Governorate", value: project.governorate ?? "—" },
-        { label: "Design status", value: t.status[project.designStatus] },
-      ],
+      content: <ProjectSummary project={project} />,
     },
     {
       title: "PV Array", status: "ready", engine: "Panel Library / Array Engine",
